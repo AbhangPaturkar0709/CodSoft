@@ -32,7 +32,7 @@ public class Task1 {
         while (level <= 10) {
             int round = 1;
             boolean levelCompleted = true;
-            int attempts = maxAttempts;
+            int attempts = maxAttempts + level - 1; // Increase attempts by level
 
             while (round <= 5) {
                 int numberToGuess = random.nextInt(maxRange) + 1;
@@ -43,7 +43,7 @@ public class Task1 {
                         + ".\n\t\t\t\tTry to guess it..!\n");
 
                 while (attempts > 0) {
-                    System.out.print("\tEnter your guess (Attempts left: " + attempts + "): ");
+                    System.out.print("\tEnter your guess (Attempts left: " + attempts + ")" + numberToGuess + ": ");
                     int userGuess = scanner.nextInt();
                     attempts--;
 
@@ -71,12 +71,15 @@ public class Task1 {
 
                 System.out.println("\n\t\t- : - : - : Your current score: " + score + ": - : - : -");
                 printSeparator(20);
+
+                if (round < 5) {
+                    attempts = maxAttempts + level - 1 - round; // Decrease attempts for the next round
+                }
                 round++;
             }
 
             if (levelCompleted) {
                 if (level < 10) {
-                    maxAttempts++;
                     System.out.print("Congratulations! Do you want to move to the next level? (yes/no): ");
                     String nextLevel = scanner.next();
                     if (nextLevel.equalsIgnoreCase("yes")) {
